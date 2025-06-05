@@ -1,168 +1,624 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+.container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
+  padding: 1rem 4rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(15px);
 }
 
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
-}
-
-.main {
+.logo {
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  align-items: center;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
+.logoImg {
+  height: 40px;
 }
 
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
-}
-
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-.ctas {
+.navLinks {
   display: flex;
-  gap: 16px;
+  gap: 1.5rem;
 }
 
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
+.navLinks a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLinks a:hover, .navLinks a.active {
+  color: #ff6b35;
+}
+
+.languageSelector {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.languageButton {
+  background: none;
   border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  transition: color 0.3s ease;
+}
+
+.languageButton:hover {
+  color: #ff6b35;
+}
+
+.languageSeparator {
+  color: #fff;
+  opacity: 0.5;
+}
+
+/* Hero Section Styles */
+.hero {
+  background-image: url('/images/coche.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.heroContent {
+  text-align: right;
+  width: 50%;
+  max-width: 750px;
+  margin-top: 5rem;
+  margin-left: auto;
+  padding: 0 4rem;
+}
+
+.heroTitle {
+  color: white;
+  font-size: 4.1rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  max-width: 750px;
+  margin-left: auto;
+}
+
+.orangeText {
+  color: #ff6b35;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  justify-content: flex-start;
+  margin-left: 12em;
+}
+
+.primaryButton {
+  background-color: #0056d6;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.primaryButton:hover {
+  background-color: #004abc;
+}
+
+.secondaryButton {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  border-radius: 30px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.secondaryButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.arrowIcon {
+  font-size: 1.2rem;
+}
+
+.searchContainer {
+  margin-top: 2rem;
+}
+
+.searchTitle {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.searchBar {
+  display: flex;
+  max-width: 600px;
+  margin-left: auto;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  outline: none;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.searchButton {
+  background-color: #0056d6;
+  color: white;
+  border: none;
+  border-radius: 0 30px 30px 0;
+  padding: 0 1.5rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
+}
+
+.searchIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Media Queries */
+/* Featured Cars Section Styles */
+.featuredCarsSection {
+  padding: 4rem;
+  background-color: #000000;
+  color: white;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+}
+
+.viewAllContainer {
+  display: flex;
+  align-items: center;
+}
+
+.viewAllLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ff6b35;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.viewAllLink:hover {
+  color: white;
+}
+
+.carGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  color: #fff;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  border-top-color: #ff6b35;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.errorContainer {
+  text-align: center;
+  padding: 3rem;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.errorMessage {
+  color: #ff6b35;
+  font-size: 1.2rem;
   font-weight: 500;
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+.carCard {
+  background-color: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+.carCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.footer {
-  grid-row-start: 3;
+.carImageContainer {
+  position: relative;
+  height: 250px;
+  width: 100%;
+}
+
+.carImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carImageGradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0));
+}
+
+.carInfo {
+  padding: 1.5rem;
+  color: white;
+}
+
+.carBrandModel {
+  margin-bottom: 1rem;
+}
+
+.carBrand {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+  color: white;
+}
+
+.carModel {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0.2rem 0 0 0;
+  color: #aaa;
+}
+
+.carDetails {
   display: flex;
-  gap: 24px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-.footer a {
+.carYear, .carFuelType, .carKm {
+  font-size: 0.9rem;
+  color: #aaa;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+}
+
+.carPriceContainer {
+  margin-bottom: 1rem;
+}
+
+.carPrice {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ff6b35;
+}
+
+.carDetailsLink {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.carDetailsLink a {
+  color: white;
+  text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
 }
 
-.footer img {
-  flex-shrink: 0;
+.carDetailsLink a:hover {
+  color: #ff6b35;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
+.paginationControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
 
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
+.paginationButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  background-color: #111;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+.paginationButton:hover {
+  border-color: #ff6b35;
+  background-color: #222;
+  color: #ff6b35;
+}
+
+/* Zoom Controls Styles */
+.zoomControls {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 1rem;
+  z-index: 10;
+}
+
+.zoomButton {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.zoomButton:hover {
+  background-color: #0056d6;
+}
+
+/* Servicios Adicionales Styles */
+.serviciosSection {
+  padding: 5rem 4rem;
+  background-color: #fff;
+  color: #333;
+}
+
+.serviciosTitulo {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.serviciosTitulo h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.serviciosSubtitulo {
+  font-size: 1.2rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.serviciosTabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 3rem;
+}
+
+.servicioTab {
+  padding: 1rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.servicioTab:hover {
+  color: #ff6b35;
+}
+
+.activeTab {
+  color: #ff6b35;
+  font-weight: 600;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff6b35;
+}
+
+.servicioContent {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+  margin-left: 8em;
+  margin-right: 8em;
+}
+
+.servicioImageContainer {
+  flex: 1;
+  max-width: 50%;
+}
+
+.servicioImage {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.servicioInfo {
+  flex: 1;
+}
+
+.servicioTitulo {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.blueText {
+  color: #ff6b35;
+}
+
+.servicioDescripcion {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  color: #333;
+  line-height: 1.6;
+}
+
+.servicioDetalle {
+  font-size: 1rem;
+  color: #666;
+  line-height: 1.8;
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    width: 200px;
+  }
+  
+  .hero, .featuredCarsSection {
+    width: calc(100% - 200px);
+    margin-left: 200px;
   }
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
+@media (max-width: 768px) {
+  .navbar {
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 1rem;
+    justify-content: space-between;
   }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
+  
   .logo {
-    filter: invert();
+    margin: 0;
+  }
+  
+  .logoImg {
+    height: 30px;
+  }
+  
+  .navLinks {
+    flex-direction: row;
+    display: none;
+  }
+  
+  .hero, .featuredCarsSection {
+    width: 100%;
+    margin-left: 0;
+    padding: 2rem;
+  }
+  
+  .heroContent {
+    padding: 0 2rem;
+    width: 80%;
+  }
+  
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .buttonContainer {
+    flex-direction: column;
+    margin-left: 7em;
+  }
+  
+  .carGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .languageSelector {
+    margin: 0;
   }
 }
