@@ -11,10 +11,10 @@ export async function GET() {
     });
     const page = await browser.newPage();
 
-    // 2) Navegamos a la URL y esperamos a que cargue completamente (hasta 30 s)
+    // 2) Navegamos a la URL y esperamos a que cargue completamente (hasta 10 s)
     await page.goto('https://www.autocasionmallorca.com/es', {
       waitUntil: 'networkidle2',
-      timeout: 30000
+      timeout: 10000
     });
 
     // 3) Intentamos cerrar el banner de “Consentimiento de Cookies” (si aparece)
@@ -32,7 +32,7 @@ export async function GET() {
 
     // 4) Esperamos específicamente a que las tarjetas de coches dentro de #bulletLooper aparezcan
     console.log('Esperando que aparezcan los .grid-2 dentro de #bulletLooper...');
-    await page.waitForSelector('#bulletLooper .grid-2', { timeout: 10000 });
+    await page.waitForSelector('#bulletLooper .grid-2', { timeout: 5000 });
     console.log('¡Ya están las tarjetas de coches en pantalla!');
 
     // 5) Obtenemos el HTML ya renderizado

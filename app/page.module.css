@@ -246,7 +246,7 @@
 
 .carGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
@@ -446,7 +446,88 @@
   background-color: #0056d6;
 }
 
-/* Servicios Adicionales Styles */
+/* Historia Empresa Section */
+.historiaSection {
+  background-color: #f5f5f5;
+  padding: 5rem 0;
+  width: 100%;
+}
+
+.historiaContainer {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  align-items: center;
+  gap: 4rem;
+}
+
+.historiaContent {
+  flex: 1;
+  max-width: 50%;
+}
+
+.historiaTitle {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.historiaText {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.historiaButton {
+  background: none;
+  border: none;
+  color: #ff6b00;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.historiaButton:hover {
+  opacity: 0.8;
+}
+
+.arrowIcon {
+  margin-left: 0.5rem;
+}
+
+.historiaImageContainer {
+  flex: 1;
+  max-width: 50%;
+}
+
+.historiaImage {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 900px) {
+  .historiaContainer {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .historiaContent,
+  .historiaImageContainer {
+    max-width: 100%;
+  }
+}
+
+/* Servicios Adicionales Section */
 .serviciosSection {
   padding: 5rem 4rem;
   background-color: #fff;
@@ -556,6 +637,103 @@
   line-height: 1.8;
 }
 
+/* Footer Styles */
+.footer {
+  background-color: #000;
+  color: white;
+  padding-top: 3rem;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.footerSection {
+  flex: 1;
+}
+
+.footerTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+.footerLinks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 1rem;
+}
+
+.footerLinks a {
+  color: #9b9b9b;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footerLinks a:hover {
+  color: white;
+}
+
+.footerContactInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.footerContactLabel {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footerContactText {
+  color: white;
+  margin: 0;
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: #9b9b9b;
+}
+
+.footerLegal {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footerLegal a {
+  color: #9b9b9b;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footerLegal a:hover {
+  color: white;
+}
+
+.footerDivider {
+  font-size: 0.8rem;
+}
+
 @media (max-width: 1200px) {
   .navbar {
     width: 200px;
@@ -564,6 +742,17 @@
   .hero, .featuredCarsSection {
     width: calc(100% - 200px);
     margin-left: 200px;
+  }
+  
+  .footerContent {
+    flex-direction: column;
+    gap: 3rem;
+  }
+  
+  .footerBottom {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
   }
 }
 

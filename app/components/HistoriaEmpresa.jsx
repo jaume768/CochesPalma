@@ -1,0 +1,33 @@
+import React from 'react';
+import styles from '../page.module.css';
+
+export default function HistoriaEmpresa() {
+  return (
+    <div className={styles.historiaSection}>
+      <div className={styles.historiaContainer}>
+        <div className={styles.historiaContent}>
+          <h2 className={styles.historiaTitle}>
+            En el mercado
+            <br /> 
+            desde <span className={styles.orangeText}>1997</span><span className={styles.orangeText}>.</span>
+          </h2>
+          <p className={styles.historiaText}>
+            Explore nuestra selección cuidadosamente elegida de vehículos premium. 
+            Desde elegantes sedanes hasta robustos SUVs, tenemos el coche perfecto 
+            que se adapta a su estilo de vida.
+          </p>
+          <button className={styles.historiaButton}>
+            Contactar <span className={styles.arrowIcon}>→</span>
+          </button>
+        </div>
+        <div className={styles.historiaImageContainer}>
+          <img 
+            src="/images/concesionario.png" 
+            alt="Concesionario de coches premium" 
+            className={styles.historiaImage} 
+          />
+        </div>
+      </div>
+    </div>
+  );
+}

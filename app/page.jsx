@@ -4,7 +4,9 @@ import styles from './page.module.css';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import FeaturedCars from './components/FeaturedCars';
+import HistoriaEmpresa from './components/HistoriaEmpresa';
 import ServiciosAdicionales from './components/ServiciosAdicionales';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
@@ -12,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturedCars />
+      <HistoriaEmpresa />
       <ServiciosAdicionales />
       
       <div className={styles.zoomControls}>
@@ -26,6 +29,7 @@ export default function Home() {
           </svg>
         </button>
       </div>
+      <Footer />
     </div>
   );
 }
