@@ -1,11 +1,25 @@
 import Image from 'next/image';
-import styles from '../page.module.css';
+import styles from './page.module.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Suspense } from 'react';
 
 // Configurar revalidación cada 1 hora (3600 segundos)
 export const revalidate = 3600;
+
+// Iconos para el componente
+const SearchIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
+
+const ChevronDownIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 // Componente Loading
 function LoadingVehicles() {
@@ -41,40 +55,36 @@ function VehicleGrid({vehicles}) {
   return (
     <div className={styles.vehiclesGrid}>
       {vehicles.map((vehicle, index) => (
-        <div className={styles.vehicleCard} key={index}>
-          <div className={styles.vehicleImageContainer}>
+        <div className={styles.carCard} key={index}>
+          <div className={styles.carImageContainer}>
             <Image
               src={vehicle.image}
               alt={`${vehicle.brand} ${vehicle.model}`}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              className={styles.vehicleImage}
+              className={styles.carImage}
               priority={index < 4} // Cargar con prioridad las primeras 4 imágenes
             />
-            <div className={styles.imageOverlay}></div>
+            <div className={styles.carImageGradient}></div>
           </div>
-          <div className={styles.vehicleDetails}>
-            <div className={styles.vehiclePrice}>{vehicle.price}</div>
-            <h3 className={styles.vehicleName}>
-              {`${vehicle.brand} ${vehicle.model}`}
-            </h3>
-            <div className={styles.vehicleSpecs}>
-              <div className={styles.specItem}>
-                <span className={styles.specLabel}>Año:</span>
-                <span>{vehicle.year}</span>
-              </div>
-              <div className={styles.specItem}>
-                <span className={styles.specLabel}>Combustible:</span>
-                <span>{vehicle.fuelType}</span>
-              </div>
-              <div className={styles.specItem}>
-                <span className={styles.specLabel}>Kilómetros:</span>
-                <span>{vehicle.km}</span>
-              </div>
+          <div className={styles.carInfo}>
+            <div className={styles.carBrandModel}>
+              <h3 className={styles.carBrand}>{vehicle.brand}</h3>
+              <h4 className={styles.carModel}>{vehicle.model}</h4>
             </div>
-            <a href={vehicle.detailUrl} target="_blank" rel="noopener noreferrer" className={styles.viewDetailsButton}>
-              Ver Detalles
-            </a>
+            <div className={styles.carDetails}>
+              <span className={styles.carYear}>{vehicle.year}</span>
+              <span className={styles.carFuelType}>{vehicle.fuelType}</span>
+              <span className={styles.carKm}>{vehicle.km} km</span>
+            </div>
+            <div className={styles.carPriceContainer}>
+              <span className={styles.carPrice}>{vehicle.price}</span>
+            </div>
+            <div className={styles.carDetailsLink}>
+              <a href={vehicle.detailUrl} target="_blank" rel="noopener noreferrer">
+                Ver Detalles <span className={styles.arrowIcon}>→</span>
+              </a>
+            </div>
           </div>
         </div>
       ))}
@@ -114,14 +124,46 @@ export default async function ComprarVehiculos() {
       
       <main className={styles.main}>
         <section className={styles.vehiclesSection}>
+          {/* Nuevo encabezado de la sección de vehículos */}
           <div className={styles.sectionHeader}>
-            <h2>Comprar Vehículos</h2>
-            <p>Encuentra el vehículo perfecto para ti entre nuestra selección de coches de calidad</p>
+            <div className={styles.headerContent}>
+              <h1>Our Vehicles</h1>
+              <p>Explore our list of pre-owned vehicles.</p>
+            </div>
           </div>
 
-          <Suspense fallback={<LoadingVehicles />}>
-            <VehicleGrid vehicles={vehicles} />
-          </Suspense>
+          <div className={styles.vehiclesContainer}>
+            {/* Barra de búsqueda */}
+            <div className={styles.searchBar}>
+              <div className={styles.searchInputWrapper}>
+                <input 
+                  type="text" 
+                  placeholder="Search by car make, model, etc." 
+                  className={styles.searchInput} 
+                />
+                <button className={styles.searchButton}>
+                  <SearchIcon />
+                </button>
+              </div>
+              <div className={styles.filtersWrapper}>
+                <div className={styles.filterButton}>
+                  <span>Body Type</span>
+                  <ChevronDownIcon />
+                </div>
+                <div className={styles.filterButton}>
+                  <span>Fuel Type</span>
+                  <ChevronDownIcon />
+                </div>
+              </div>
+            </div>
+
+            {/* Contenido principal de vehículos */}
+            <div className={styles.vehiclesContent}>
+              <Suspense fallback={<LoadingVehicles />}>
+                <VehicleGrid vehicles={vehicles} />
+              </Suspense>
+            </div>
+          </div>
         </section>
       </main>
       
