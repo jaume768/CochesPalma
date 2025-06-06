@@ -4,16 +4,10 @@ import { useState } from 'react';
 import styles from '../page.module.css';
 
 export default function ServiciosAdicionales() {
-  const [activeTab, setActiveTab] = useState('financing');
+  const [activeTab, setActiveTab] = useState('sellCar');
 
   // Define los servicios disponibles
   const servicios = {
-    financing: {
-      titulo: 'Te ayudamos a conseguir financiación',
-      descripcion: 'Obtén pre-aprobación en minutos y deja que nuestro equipo de financiación te consiga la mejor tasa de nuestros principales prestamistas.',
-      detalle: 'Nuestra amplia experiencia en el sector nos ha permitido cultivar relaciones valiosas que aprovechamos en tu beneficio. Esto incluye nuestras asociaciones con prestamistas de confianza, garantizándote las tasas más competitivas disponibles. Aplica ahora a través de nuestra segura aplicación de crédito y comienza tu viaje hacia un vehículo más nuevo y lujoso hoy mismo.',
-      imagen: '/images/financing.png'
-    },
     sellCar: {
       titulo: 'Vende tu coche',
       descripcion: 'Obtén una valoración instantánea y vende tu coche sin complicaciones.',
@@ -41,12 +35,6 @@ export default function ServiciosAdicionales() {
       </div>
 
       <div className={styles.serviciosTabs}>
-        <button 
-          className={`${styles.servicioTab} ${activeTab === 'financing' ? styles.activeTab : ''}`}
-          onClick={() => setActiveTab('financing')}
-        >
-          Financiación
-        </button>
         <button 
           className={`${styles.servicioTab} ${activeTab === 'sellCar' ? styles.activeTab : ''}`}
           onClick={() => setActiveTab('sellCar')}

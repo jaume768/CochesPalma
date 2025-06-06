@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../page.module.css';
 
 export default function Navbar() {
@@ -7,8 +8,8 @@ export default function Navbar() {
         <img src="/images/logo.png" alt=".reliable." className={styles.logoImg} />
       </div>
       <div className={styles.navLinks}>
-        <a href="#" className={styles.active}>Inicio</a>
-        <a href="#">Comprar vehículos</a>
+        <Link href="/" className={styles.active}>Inicio</Link>
+        <Link href="/comprar-vehiculos">Comprar vehículos</Link>
         <a href="#">Servicios</a>
         <a href="#">Sobre Nosotros</a>
         <a href="#">Contacto</a>

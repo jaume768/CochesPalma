@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'Reliable Car Dealership',
-  description: 'Find the best car deals',
+  title: 'Coches de ocasión y segunda mano en Mallorca',
+  description: 'Encuentra el coche perfecto para ti en Mallorca',
 };
 
 export default function RootLayout({ children }) {

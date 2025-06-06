@@ -9,12 +9,11 @@ export default function HistoriaEmpresa() {
           <h2 className={styles.historiaTitle}>
             En el mercado
             <br /> 
-            desde <span className={styles.orangeText}>1997</span><span className={styles.orangeText}>.</span>
+            desde hace más de <span className={styles.orangeText}>30 años</span><span className={styles.orangeText}>.</span>
           </h2>
           <p className={styles.historiaText}>
-            Explore nuestra selección cuidadosamente elegida de vehículos premium. 
-            Desde elegantes sedanes hasta robustos SUVs, tenemos el coche perfecto 
-            que se adapta a su estilo de vida.
+            Explore nuestra selección cuidadosamente elegida de vehículos. 
+            Tenemos el coche perfecto para ti.
           </p>
           <button className={styles.historiaButton}>
             Contactar <span className={styles.arrowIcon}>→</span>
