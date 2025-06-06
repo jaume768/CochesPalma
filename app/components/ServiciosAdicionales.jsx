@@ -27,7 +27,7 @@ export default function ServiciosAdicionales() {
   return (
     <section className={styles.serviciosSection}>
       <div className={styles.serviciosTitulo}>
-        <h2>Estamos aquí <span className={styles.orangeText}>para ti.</span></h2>
+        <h2>Estamos aquí <span className={styles.orangeText}>para ti</span></h2>
         <p className={styles.serviciosSubtitulo}>
           Descubre a continuación nuestros servicios adicionales<br />
           que harán tu vida más fácil.

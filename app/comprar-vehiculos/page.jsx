@@ -55,38 +55,46 @@ function VehicleGrid({vehicles}) {
   return (
     <div className={styles.vehiclesGrid}>
       {vehicles.map((vehicle, index) => (
-        <div className={styles.carCard} key={index}>
-          <div className={styles.carImageContainer}>
-            <Image
-              src={vehicle.image}
-              alt={`${vehicle.brand} ${vehicle.model}`}
-              fill
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-              className={styles.carImage}
-              priority={index < 4} // Cargar con prioridad las primeras 4 imágenes
-            />
-            <div className={styles.carImageGradient}></div>
+        <a 
+          href={vehicle.detailUrl} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className={styles.carCardLink}
+          key={index}
+        >
+          <div className={styles.carCard}>
+            <div className={styles.carImageContainer}>
+              <Image
+                src={vehicle.image}
+                alt={`${vehicle.brand} ${vehicle.model}`}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                className={styles.carImage}
+                priority={index < 4} // Cargar con prioridad las primeras 4 imágenes
+              />
+              <div className={styles.carImageGradient}></div>
+            </div>
+            <div className={styles.carInfo}>
+              <div className={styles.carBrandModel}>
+                <h3 className={styles.carBrand}>{vehicle.brand}</h3>
+                <h4 className={styles.carModel}>{vehicle.model}</h4>
+              </div>
+              <div className={styles.carDetails}>
+                <span className={styles.carYear}>{vehicle.year}</span>
+                <span className={styles.carFuelType}>{vehicle.fuelType}</span>
+                <span className={styles.carKm}>{vehicle.km} km</span>
+              </div>
+              <div className={styles.carPriceContainer}>
+                <span className={styles.carPrice}>{vehicle.price}</span>
+              </div>
+              <div className={styles.carDetailsLink}>
+                <span className={styles.detailsText}>
+                  Ver Detalles <span className={styles.arrowIcon}>→</span>
+                </span>
+              </div>
+            </div>
           </div>
-          <div className={styles.carInfo}>
-            <div className={styles.carBrandModel}>
-              <h3 className={styles.carBrand}>{vehicle.brand}</h3>
-              <h4 className={styles.carModel}>{vehicle.model}</h4>
-            </div>
-            <div className={styles.carDetails}>
-              <span className={styles.carYear}>{vehicle.year}</span>
-              <span className={styles.carFuelType}>{vehicle.fuelType}</span>
-              <span className={styles.carKm}>{vehicle.km} km</span>
-            </div>
-            <div className={styles.carPriceContainer}>
-              <span className={styles.carPrice}>{vehicle.price}</span>
-            </div>
-            <div className={styles.carDetailsLink}>
-              <a href={vehicle.detailUrl} target="_blank" rel="noopener noreferrer">
-                Ver Detalles <span className={styles.arrowIcon}>→</span>
-              </a>
-            </div>
-          </div>
-        </div>
+        </a>
       ))}
     </div>
   );

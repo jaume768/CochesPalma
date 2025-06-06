@@ -119,7 +119,7 @@ export async function GET() {
     
     try {
       console.log('Intentando scraping con axios...');
-      const response = await axios.get('https://www.cochesmallorca.com/es', {
+      const response = await axios.get('https://www.autocasionmallorca.com/es', {
         timeout: 10000,
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -157,7 +157,7 @@ export async function GET() {
         }
       });
 
-      await page.goto('https://www.cochesmallorca.com/es', {
+      await page.goto('https://www.autocasionmallorca.com/es', {
         waitUntil: 'networkidle2',
         timeout: 30000
       });
@@ -177,7 +177,7 @@ export async function GET() {
 
     console.time('procesamiento-dom');
     const $ = cheerio.load(content);
-    const baseUrl = 'https://www.cochesmallorca.com';
+    const baseUrl = 'https://www.autocasionmallorca.com';
     
     // Obtenemos todos los elementos de una vez y limitamos el número
     const vehicleElements = $('.div-mosaic').toArray().slice(0, MAX_VEHICLES);

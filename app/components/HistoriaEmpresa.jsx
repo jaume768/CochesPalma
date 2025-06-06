@@ -9,7 +9,7 @@ export default function HistoriaEmpresa() {
           <h2 className={styles.historiaTitle}>
             En el mercado
             <br /> 
-            desde hace más de <span className={styles.orangeText}>30 años</span><span className={styles.orangeText}>.</span>
+            desde hace más de <span className={styles.orangeText}>30 años</span>
           </h2>
           <p className={styles.historiaText}>
             Explore nuestra selección cuidadosamente elegida de vehículos. 

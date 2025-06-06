@@ -6,7 +6,7 @@ export default function Hero() {
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
             <span className={styles.orangeText}>Somos </span>
-            la mejor web de coches de <span className={styles.orangeText}> autocasión </span>en Mallorca.
+            la mejor web de coches de <span className={styles.orangeText}> autocasión </span>en Mallorca
           </h1>
           
           <div className={styles.buttonContainer}>

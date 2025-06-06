@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'www.cochesmallorca.com',
+                hostname: 'www.autocasionmallorca.com',
                 port: '',
                 pathname: '/**', // Permite cualquier ruta dentro de este dominio
             },
