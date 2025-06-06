@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Servicio de la API Node.js
+  api:
+    build:
+      context: ./api-nodejs
+      dockerfile: Dockerfile
+    container_name: concesionario-api
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./api-nodejs:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_USER=concesionario_user
+      - DB_PASSWORD=concesionario_pass
+      - DB_NAME=concesionario_db
+      - DB_PORT=3306
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+
+  # Servicio de la base de datos MySQL
+  mysql:
+    image: mysql:8.0
+    container_name: concesionario-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root_password
+      - MYSQL_DATABASE=concesionario_db
+      - MYSQL_USER=concesionario_user
+      - MYSQL_PASSWORD=concesionario_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./api-nodejs/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+
+  # Interfaz de administración para MySQL (opcional)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: concesionario-phpmyadmin
+    ports:
+      - "8080:80"
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+    depends_on:
+      - mysql
+    networks:
+      - concesionario-network
+
+volumes:
+  mysql_data:
+
+networks:
+  concesionario-network:
+    driver: bridge
