@@ -58,7 +58,7 @@ function VehicleGrid({ vehicles }) {
     <div className={styles.vehiclesGrid}>
       {vehicles.map((vehicle, index) => (
         <a
-          href="#"
+          href={`/vehiculo/${vehicle.id}`}
           className={styles.carCardLink}
           key={vehicle.id ?? index}
         >

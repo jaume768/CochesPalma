@@ -1,6 +1,6 @@
 .vehiclesSection {
   width: 100%;
-  padding: 100px 0;
+  padding: 100px 0px 20px 0px;
   background-color: #fff;
 }
 
@@ -22,7 +22,8 @@
 }
 
 .vehiclesContainer {
-  padding: 0 60px;
+  padding: 0 0px;
+  overflow-x: hidden;
 }
 
 .searchBar {
@@ -30,6 +31,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  margin-right: 50px;
+  margin-left: 50px;
   flex-wrap: wrap;
   gap: 20px;
 }
@@ -142,7 +145,6 @@
 .vehiclesGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
   margin: 0 auto;
 }
 
@@ -223,7 +225,7 @@
 }
 
 .carCard:hover {
-  transform: scale(1.03);
+  transform: scale(1.016);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
