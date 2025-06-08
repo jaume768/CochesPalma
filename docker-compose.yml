@@ -29,6 +29,9 @@ services:
   mysql:
     image: mysql:8.0
     container_name: concesionario-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
     ports:
       - "3306:3306"
     environment:
@@ -50,7 +53,12 @@ services:
     ports:
       - "8080:80"
     environment:
+      - PMA_ARBITRARY=1
       - PMA_HOST=mysql
+      - PMA_USER=concesionario_user
+      - PMA_PASSWORD=concesionario_pass
+      - MYSQL_ROOT_PASSWORD=root_password
+      - PMA_ABSOLUTE_URI=http://localhost:8080/
       - PMA_PORT=3306
     depends_on:
       - mysql
