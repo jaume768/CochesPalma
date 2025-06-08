@@ -1,10 +1,12 @@
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
 import Image from 'next/image';
-import styles from './page.module.css';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { Suspense } from 'react';
+import ErrorDisplay from './ErrorDisplay';
+import FilterForm from './FilterForm';
+import styles from './page.module.css';
 import VehiclesPagination from './VehiclesPagination';
-import { notFound } from 'next/navigation';
 
 // Configurar revalidación cada 1 hora (3600 segundos)
 export const revalidate = 3600;
@@ -29,21 +31,6 @@ function LoadingVehicles() {
     <div className={styles.loadingContainer}>
       <div className={styles.loadingSpinner}></div>
       <p>Cargando vehículos...</p>
-    </div>
-  );
-}
-
-// Componente Error
-function ErrorDisplay({ error }) {
-  return (
-    <div className={styles.errorContainer}>
-      <p>{error || 'No se pudieron cargar los vehículos. Por favor, inténtelo de nuevo más tarde.'}</p>
-      <button
-        className={styles.retryButton}
-        onClick={() => window.location.reload()}
-      >
-        Reintentar
-      </button>
     </div>
   );
 }
@@ -124,8 +111,18 @@ async function getVehicles(page = 1, search = '', filters = {}) {
     if (!res.ok) throw new Error('Failed to fetch vehicles');
     const data = await res.json();
 
+    // Si no hay datos o no hay vehículos, devolver un formato consistente con array vacío
     if (!data || !data.vehicles) {
-      throw new Error('Invalid response format');
+      console.log('No se encontraron vehículos con los filtros aplicados');
+      return { 
+        vehicles: [], 
+        pagination: { 
+          currentPage: 1, 
+          totalPages: 0, 
+          totalItems: 0, 
+          itemsPerPage: 12 
+        } 
+      };
     }
 
     return data;
@@ -177,50 +174,7 @@ export default async function ComprarVehiculos({ searchParams }) {
           </div>
 
           <div className={styles.vehiclesContainer}>
-            <form action="/comprar-vehiculos" method="get" className={styles.searchBar}>
-              <div className={styles.searchInputWrapper}>
-                <input
-                  type="text"
-                  name="search"
-                  placeholder="Buscar por marca, modelo, etc."
-                  className={styles.searchInput}
-                  defaultValue={search}
-                />
-                <button type="submit" className={styles.searchButton}>
-                  <SearchIcon />
-                </button>
-              </div>
-              <div className={styles.filtersWrapper}>
-                <select
-                  name="carroceria"
-                  className={styles.filterButton}
-                  defaultValue={carroceria}
-                >
-                  <option value="">Tipo de Carrocería</option>
-                  <option value="Berlina">Berlina</option>
-                  <option value="SUV">SUV</option>
-                  <option value="Compacto">Compacto</option>
-                  <option value="Familiar">Familiar</option>
-                  <option value="Cabrio">Cabrio</option>
-                </select>
-                <select
-                  name="combustible"
-                  className={styles.filterButton}
-                  defaultValue={combustible}
-                >
-                  <option value="">Tipo de Combustible</option>
-                  <option value="Gasolina">Gasolina</option>
-                  <option value="Diésel">Diésel</option>
-                  <option value="Híbrido">Híbrido</option>
-                  <option value="Eléctrico">Eléctrico</option>
-                </select>
-                {(search || combustible || carroceria) && (
-                  <a href="/comprar-vehiculos" className={styles.clearFilters}>
-                    Limpiar filtros
-                  </a>
-                )}
-              </div>
-            </form>
+            <FilterForm search={search} combustible={combustible} carroceria={carroceria} />
 
             <div className={styles.vehiclesContent}>
               <Suspense fallback={<LoadingVehicles />}>

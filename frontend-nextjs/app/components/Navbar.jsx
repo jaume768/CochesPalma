@@ -10,20 +10,15 @@ export default function Navbar() {
 
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>
+      <Link href="/" className={styles.logo}>
         <img src="/images/logo.png" alt=".reliable." className={styles.logoImg} />
-      </div>
+      </Link>
       <div className={styles.navLinks}>
         <Link href="/" className={pathname === '/' ? styles.active : ''}>Inicio</Link>
-        <Link href="/comprar-vehiculos" className={pathname === '/comprar-vehiculos' ? styles.active : ''}>Comprar vehículos</Link>
-        <a href="#">Servicios</a>
-        <a href="#">Sobre Nosotros</a>
-        <a href="#">Contacto</a>
-      </div>
-      <div className={styles.languageSelector}>
-        <button className={styles.languageButton}>ES</button>
-        <span className={styles.languageSeparator}>|</span>
-        <button className={styles.languageButton}>EN</button>
+        <Link href="/comprar-vehiculos" className={pathname === '/comprar-vehiculos' ? styles.active : ''}>Comprar un coche</Link>
+        <Link href="/vender-vehiculos" className={pathname === '/vender-vehiculos' ? styles.active : ''}>Vender su coche</Link>
+        <Link href="/alquilar-vehiculos" className={pathname === '/alquilar-vehiculos' ? styles.active : ''}>Alquilar un coche</Link>
+        <Link href="/contacto" className={pathname === '/contacto' ? styles.active : ''}>Contacto</Link>
       </div>
     </nav>
   );

@@ -11,9 +11,9 @@ export default function Footer() {
           <h3 className={styles.footerTitle}>Menú</h3>
           <ul className={styles.footerLinks}>
             <li><a href="#">Inicio</a></li>
-            <li><a href="#">Comprar vehículos</a></li>
-            <li><a href="#">Servicios</a></li>
-            <li><a href="#">Sobre Nosotros</a></li>
+            <li><a href="#">Comprar un coche</a></li>
+            <li><a href="#">Vender su coche</a></li>
+            <li><a href="#">Alquilar un coche</a></li>
             <li><a href="#">Contacto</a></li>
           </ul>
         </div>
