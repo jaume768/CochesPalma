@@ -6,6 +6,8 @@ const { connectDB } = require('./config/db');
 
 // Importar rutas
 const vehiculoRoutes = require('./routes/vehiculo.routes');
+const cocheDestacadoRoutes = require('./routes/coche-destacado.routes');
+const cocheRoutes = require('./routes/coche.routes');
 
 // Inicializar la app de Express
 const app = express();
@@ -25,6 +27,8 @@ app.get('/', (req, res) => {
 
 // Configuración de rutas
 app.use('/api/vehiculos', vehiculoRoutes);
+app.use('/api/coches-destacados', cocheDestacadoRoutes);
+app.use('/api/coches', cocheRoutes);
 
 // Iniciar la conexión a la base de datos y levantar el servidor
 const startServer = async () => {

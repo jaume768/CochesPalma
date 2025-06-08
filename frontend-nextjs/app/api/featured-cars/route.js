@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
-import * as cheerio from 'cheerio';
 import { promises as fs } from 'fs';
 import path from 'path';
 
 // Configuración de caché
 const CACHE_FILE = path.join(process.cwd(), 'cache', 'featured-cars.json');
-const CACHE_DURATION = 3600000; // 1 hora en milisegundos
+const CACHE_DURATION = 900000; // 15 minutos en milisegundos
+
+// URL de la API
+const API_URL = process.env.API_URL || 'http://localhost:3001';
 
 // Datos fallback en caso de error
 const fallbackData = [
@@ -96,123 +97,28 @@ export async function GET() {
     } catch (e) {
       console.log('Error verificando caché de featured-cars:', e);
     }
-    // 1) Lanzamos Puppeteer en modo headless con opciones optimizadas
-    const browser = await puppeteer.launch({
-      headless: "new",
-      args: [
-        '--no-sandbox', 
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage',
-        '--disable-accelerated-2d-canvas',
-        '--disable-gpu',
-        '--window-size=1920x1080'
-      ],
-      defaultViewport: { width: 1920, height: 1080 }
-    });
-    const page = await browser.newPage();
     
-    // Bloqueo de recursos innecesarios para acelerar la carga
-    await page.setRequestInterception(true);
-    page.on('request', (req) => {
-      const resourceType = req.resourceType();
-      if (resourceType === 'image' || resourceType === 'font' || resourceType === 'stylesheet') {
-        req.abort();
-      } else {
-        req.continue();
-      }
+    // Obtener los datos de coches destacados desde nuestra API
+    console.log(`Obteniendo coches destacados de la API: ${API_URL}/api/coches-destacados`);
+    const response = await fetch(`${API_URL}/api/coches-destacados`, {
+      headers: {
+        'Accept': 'application/json'
+      },
+      cache: 'no-store'
     });
-
-    // 2) Navegamos a la URL y esperamos a que cargue completamente (hasta 10 s)
-    await page.goto('https://www.autocasionmallorca.com/es', {
-      waitUntil: 'networkidle2',
-      timeout: 10000
-    });
-
-    // 3) Intentamos cerrar el banner de “Consentimiento de Cookies” (si aparece)
-    try {
-      // Buscamos un <button> que contenga el texto "Aceptar"
-      const [btnAceptar] = await page.$x("//button[contains(., 'Aceptar')]");
-      if (btnAceptar) {
-        await btnAceptar.click();
-        // Esperamos un momento para que el overlay se oculte
-        await page.waitForTimeout(1500);
-      }
-    } catch (e) {
-      // Si no encuentra el botón en un par de segundos, continuamos de todas formas
+    
+    if (!response.ok) {
+      throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
     }
-
-    // 4) Esperamos específicamente a que las tarjetas de coches dentro de #bulletLooper aparezcan
-    console.log('Esperando que aparezcan los .grid-2 dentro de #bulletLooper...');
-    await page.waitForSelector('#bulletLooper .grid-2', { timeout: 5000 });
-    console.log('¡Ya están las tarjetas de coches en pantalla!');
-
-    // 5) Obtenemos el HTML ya renderizado
-    const html = await page.content();
-    await browser.close(); // Cerramos Puppeteer
-
-    // 6) Cargamos el HTML con Cheerio
-    const $ = cheerio.load(html);
     
-    // 7) Obtenemos todos los elementos de las tarjetas de una vez
-    const carElements = $('#bulletLooper .grid-2').toArray();
-    console.log(`Encontrados ${carElements.length} elementos de coches`);
+    const cars = await response.json();
     
-    // 8) Procesamos en paralelo con Promise.all para mayor velocidad
-    const cars = await Promise.all(carElements.map(async (el, i) => {
-      try {
-        const $el = $(el); // Optimización: creamos una referencia para evitar múltiples jQuery lookups
-        
-        // Extraemos título (marca/modelo) y precio de una vez
-        const title = $el.find('h5').text().trim();
-        const priceRaw = $el.find('h4').text().trim();
-        const imageUrl = $el.find('img').attr('src') || '';
-        
-        if (!title || !priceRaw) return null; // Saltamos entradas sin datos importantes
-        
-        // Convertimos el precio a número de forma optimizada
-        let price = 0;
-        if (priceRaw) {
-          price = parseFloat(
-            priceRaw
-              .replace(/€/g, '')
-              .replace(/\./g, '')
-              .replace(',', '.')
-              .trim()
-          ) || 0;
-        }
-
-        // Separamos marca y modelo a partir del título
-        const [brand, ...rest] = title.split(' ');
-        const model = rest.join(' ') || title;
-
-        // Construimos la URL absoluta de la imagen
-        const fullImageUrl = imageUrl.startsWith('http')
-          ? imageUrl
-          : `https://www.autocasionmallorca.com${imageUrl}`;
-
-        return {
-          id: i + 1,
-          brand: brand || '',
-          model: model,
-          price: price,
-          // Añadimos algunos datos estimados para mejorar la experiencia visual
-          year: String(new Date().getFullYear() - Math.floor(Math.random() * 4)),
-          fuelType: ['Gasolina', 'Diésel', 'Híbrido', 'Eléctrico'][Math.floor(Math.random() * 4)],
-          km: Math.floor(Math.random() * 50000),
-          image: fullImageUrl
-        };
-      } catch (error) {
-        console.error('Error procesando elemento de coche:', error);
-        return null;
-      }
-    })).then(results => results.filter(Boolean)); // Filtrar elementos nulos
-
-    // 8) Si no se encontró ningún coche, devolvemos datos fallback
-    if (cars.length === 0) {
-      return returnFallbackData('No se encontraron coches en el scraping');
+    // Si no hay datos, usar fallback
+    if (!cars || cars.length === 0) {
+      return returnFallbackData('No se encontraron coches destacados en la API');
     }
-
-    // 9) Guardar en caché
+    
+    // Guardar en caché
     try {
       await fs.writeFile(CACHE_FILE, JSON.stringify(cars), 'utf-8');
       console.log('Datos de featured-cars guardados en caché');
@@ -220,10 +126,11 @@ export async function GET() {
       console.error('Error guardando caché de featured-cars:', cacheError);
       // Continuamos aunque falle el guardado en caché
     }
-
-    // 10) Devolvemos la lista real de coches
+    
+    // Devolver los datos
     return NextResponse.json(cars);
   } catch (error) {
+    console.error('Error obteniendo coches destacados:', error);
     return returnFallbackData(error);
   }
 }
