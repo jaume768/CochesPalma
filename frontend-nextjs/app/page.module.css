@@ -125,6 +125,7 @@
   font-weight: 600;
   cursor: pointer;
   display: flex;
+  text-decoration: none;
   align-items: center;
   font-size: 1em;
   gap: 0.5rem;
@@ -144,6 +145,7 @@
   font-weight: 600;
   cursor: pointer;
   display: flex;
+  text-decoration: none;
   align-items: center;
   font-size: 1em;
   gap: 0.5rem;

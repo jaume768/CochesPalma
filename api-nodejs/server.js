@@ -8,6 +8,7 @@ const { connectDB } = require('./config/db');
 const vehiculoRoutes = require('./routes/vehiculo.routes');
 const cocheDestacadoRoutes = require('./routes/coche-destacado.routes');
 const cocheRoutes = require('./routes/coche.routes');
+const rentacarRoutes = require('./routes/rentacar.routes');
 
 // Inicializar la app de Express
 const app = express();
@@ -29,6 +30,7 @@ app.get('/', (req, res) => {
 app.use('/api/vehiculos', vehiculoRoutes);
 app.use('/api/coches-destacados', cocheDestacadoRoutes);
 app.use('/api/coches', cocheRoutes);
+app.use('/api/rentacars', rentacarRoutes);
 
 // Iniciar la conexión a la base de datos y levantar el servidor
 const startServer = async () => {
