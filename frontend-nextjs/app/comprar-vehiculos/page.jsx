@@ -94,8 +94,11 @@ async function getVehicles(page = 1, search = '', filters = {}) {
     const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const host = process.env.VERCEL_URL || 'localhost:3000';
 
+    // Determinar qué API usar: inteligente si hay búsqueda, convencional si solo hay filtros
+    const apiEndpoint = search ? 'intelligent-search' : 'vehicle-list';
+    
     // Construir la URL con los parámetros de consulta
-    const url = new URL(`${protocol}://${host}/api/vehicle-list`);
+    const url = new URL(`${protocol}://${host}/api/${apiEndpoint}`);
     url.searchParams.append('page', page.toString());
     url.searchParams.append('limit', '12'); // Mostramos 12 vehículos por página
 
@@ -104,6 +107,7 @@ async function getVehicles(page = 1, search = '', filters = {}) {
     if (filters.combustible) url.searchParams.append('combustible', filters.combustible);
     if (filters.carroceria) url.searchParams.append('carroceria', filters.carroceria);
 
+    console.log(`Buscando vehículos usando API: ${apiEndpoint}`);
     const res = await fetch(url.toString(), {
       cache: 'no-store'
     });

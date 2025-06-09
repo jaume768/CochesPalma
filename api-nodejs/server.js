@@ -3,12 +3,15 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const { connectDB } = require('./config/db');
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Importar rutas
 const vehiculoRoutes = require('./routes/vehiculo.routes');
 const cocheDestacadoRoutes = require('./routes/coche-destacado.routes');
 const cocheRoutes = require('./routes/coche.routes');
 const rentacarRoutes = require('./routes/rentacar.routes');
+const searchRoutes = require('./routes/searchRoutes');
 
 // Inicializar la app de Express
 const app = express();
@@ -31,6 +34,7 @@ app.use('/api/vehiculos', vehiculoRoutes);
 app.use('/api/coches-destacados', cocheDestacadoRoutes);
 app.use('/api/coches', cocheRoutes);
 app.use('/api/rentacars', rentacarRoutes);
+app.use('/api/search', searchRoutes);
 
 // Iniciar la conexión a la base de datos y levantar el servidor
 const startServer = async () => {

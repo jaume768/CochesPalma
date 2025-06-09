@@ -162,6 +162,7 @@
 
 .searchContainer {
   margin-top: 2rem;
+  position: relative;
 }
 
 .searchTitle {
@@ -174,8 +175,16 @@
 
 .searchBar {
   display: flex;
+  flex-direction: column;
   max-width: 600px;
   margin-left: auto;
+  position: relative;
+}
+
+.searchInputWrapper {
+  display: flex;
+  position: relative;
+  width: 100%;
 }
 
 .searchInput {
@@ -198,6 +207,100 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+  background-color: #004abc;
+}
+
+/* Estilos para el indicador de carga */
+.searchLoading {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  animation: spin 0.8s infinite linear;
+}
+
+.loadingDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  animation: spin 0.8s infinite linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Estilos para los filtros sugeridos */
+.suggestedFilters {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.suggestedTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.suggestedTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.suggestedTag {
+  background-color: #e6f0ff;
+  color: #0056d6;
+  border-radius: 30px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+}
+
+.aiNote {
+  display: block;
+  margin-top: 8px;
+  color: #666;
+  font-size: 0.7rem;
+  text-align: right;
+}
+
+/* Indicador de búsqueda con IA */
+.aiIndicator {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  background-color: #0056d6;
+  color: white;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.aiSearchInfo {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: #555;
+  text-align: center;
+  font-style: italic;
 }
 
 .searchIcon {

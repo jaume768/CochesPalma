@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import styles from './page.module.css';
 import { useRouter } from 'next/navigation';
 
@@ -8,6 +9,31 @@ import { useRouter } from 'next/navigation';
  */
 export default function FilterForm({ search, combustible, carroceria }) {
   const router = useRouter();
+  const [isUsingAI, setIsUsingAI] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState(search || '');
+  
+  // Verificar si se está usando la búsqueda inteligente
+  useEffect(() => {
+    // Solo verificamos si hay un término de búsqueda
+    if (search && search.trim() !== '') {
+      checkIfUsingAI();
+    }
+  }, [search]);
+  
+  // Función para verificar si se está usando la búsqueda inteligente
+  const checkIfUsingAI = async () => {
+    try {
+      const response = await fetch(`/api/intelligent-search?search=${encodeURIComponent(search)}&page=1&limit=1`);
+      if (response.ok) {
+        const data = await response.json();
+        setIsUsingAI(data.aiGenerated === true);
+      }
+    } catch (error) {
+      console.error('Error al verificar si se usa IA:', error);
+      setIsUsingAI(false);
+    }
+  };
   
   // Función para manejar cambios en los filtros
   const handleFilterChange = (e) => {
@@ -36,6 +62,29 @@ export default function FilterForm({ search, combustible, carroceria }) {
     router.push(`/comprar-vehiculos?${searchParams.toString()}`);
   };
   
+  // Manejar el envío del formulario
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    // Construimos la URL con los parámetros
+    const searchParams = new URLSearchParams();
+    
+    // Añadimos el valor de búsqueda si existe
+    if (searchInput) searchParams.set('search', searchInput);
+    
+    // Añadimos carrocería si existe
+    const carroceriaValue = e.target.carroceria.value;
+    if (carroceriaValue) searchParams.set('carroceria', carroceriaValue);
+    
+    // Añadimos combustible si existe
+    const combustibleValue = e.target.combustible.value;
+    if (combustibleValue) searchParams.set('combustible', combustibleValue);
+    
+    // Navegamos a la URL con los parámetros
+    router.push(`/comprar-vehiculos?${searchParams.toString()}`);
+  };
+  
   // Icono para el botón de búsqueda
   const SearchIcon = () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,17 +94,18 @@ export default function FilterForm({ search, combustible, carroceria }) {
   );
   
   return (
-    <form action="/comprar-vehiculos" method="get" className={styles.searchBar}>
+    <form onSubmit={handleSubmit} className={styles.searchBar}>
       <div className={styles.searchInputWrapper}>
         <input
           type="text"
           name="search"
-          placeholder="Buscar por marca, modelo, etc."
+          placeholder="Buscar por marca, modelo, características, precio..."
           className={styles.searchInput}
-          defaultValue={search}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
         <button type="submit" className={styles.searchButton}>
-          <SearchIcon />
+          {isLoading ? <span className={styles.loadingDot}></span> : <SearchIcon />}
         </button>
       </div>
       <div className={styles.filtersWrapper}>
