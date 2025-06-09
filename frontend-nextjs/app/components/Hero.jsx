@@ -14,20 +14,10 @@ export default function Hero() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchText.trim()) {
-      // Construye la URL con la búsqueda y los filtros sugeridos
-      let searchUrl = `/comprar-vehiculos?search=${encodeURIComponent(searchText.trim())}`;
+      // Construye la URL solo con el término de búsqueda
+      const searchUrl = `/comprar-vehiculos?search=${encodeURIComponent(searchText.trim())}`;
       
-      // Añadir filtros sugeridos si existen
-      if (suggestedFilters) {
-        if (suggestedFilters.combustible) {
-          searchUrl += `&combustible=${encodeURIComponent(suggestedFilters.combustible)}`;
-        }
-        if (suggestedFilters.carroceria) {
-          searchUrl += `&carroceria=${encodeURIComponent(suggestedFilters.carroceria)}`;
-        }
-      }
-      
-      // Redirige a la página de comprar-vehiculos con los parámetros
+      // Redirige a la página de comprar-vehiculos con el parámetro de búsqueda
       router.push(searchUrl);
     }
   };
