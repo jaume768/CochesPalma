@@ -77,8 +77,6 @@ async function generateSQLQuery(searchText, filters = {}) {
     // Si no está en caché o expiró, generar nueva consulta
     const dbSchema = await getDBSchema();
 
-    console.log(dbSchema.catalogs.clasificaciones);
-
     // Construir el prompt para ChatGPT
     const prompt = `
 # ROL Y OBJETIVO
