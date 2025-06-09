@@ -113,7 +113,7 @@ export default function Contacto() {
                   </div>
                   <div className={styles.contactText}>
                     <h3>Dirección</h3>
-                    <p>Avenida Aragón, 25</p>
+                    <p>Vía Palma 100, 2ºF</p>
                     <p>07005 - Palma de Mallorca</p>
                     <p>Islas Baleares, España</p>
                   </div>
@@ -158,16 +158,6 @@ export default function Contacto() {
                     <p>Domingo: <strong>Cerrado</strong></p>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          
-          <div className={styles.mapContainer}>
-            <h2>Encuéntrenos</h2>
-            <div className={styles.map}>
-              {/* En un proyecto real aquí iría el mapa de Google Maps o similar */}
-              <div className={styles.mapPlaceholder}>
-                <p>Aquí iría un mapa interactivo mostrando la ubicación de nuestro concesionario</p>
               </div>
             </div>
           </div>

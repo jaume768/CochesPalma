@@ -53,7 +53,7 @@ export default function FeaturedCars() {
       <div className={styles.sectionHeader}>
         <h2 className={styles.sectionTitle}>Coches Destacados</h2>
         <div className={styles.viewAllContainer}>
-          <a href="#" className={styles.viewAllLink}>
+          <a href="/comprar-vehiculos" className={styles.viewAllLink}>
             Ver todos los vehículos <span className={styles.arrowIcon}>→</span>
           </a>
         </div>
