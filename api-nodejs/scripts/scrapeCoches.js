@@ -135,7 +135,7 @@ async function scrapeDetail(url) {
     if (!list.length) break;
     allVehicles.push(...list);
     page++;
-    if(page>20) break;
+    if(page>30) break;
   }
   console.log(`Total coches: ${allVehicles.length}`);
 

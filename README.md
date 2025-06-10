@@ -8,7 +8,6 @@ Aplicación web completa para un concesionario de vehículos con búsqueda intel
 - **API REST Node.js** con Express
 - **Base de datos MySQL** con estructura relacional optimizada
 - **Búsqueda Inteligente** con procesamiento de lenguaje natural
-- **Scraping automatizado** para mantener el inventario actualizado
 - **Arquitectura de microservicios** con Docker Compose
 - **Modelo MVC** en el backend para mejor mantenibilidad
 - **Interfaz de usuario intuitiva** con animaciones y efectos visuales
@@ -47,11 +46,6 @@ El proyecto está estructurado en cuatro servicios principales:
    - Esquema optimizado para concesionarios
    - Relaciones entre vehículos, características, imágenes
    - Inicialización automática con scripts predefinidos
-
-4. **Scripts Automatizados**
-   - Scraping de datos de vehículos
-   - Actualización periódica de inventario
-   - Sincronización con la base de datos
 
 ## 🔧 Requisitos Previos
 
@@ -105,11 +99,9 @@ docker-compose up mysql phpmyadmin
 
 El sistema funciona de la siguiente manera:
 
-1. Los scripts de scraping recolectan datos de vehículos automáticamente
-2. Los datos se almacenan en la base de datos MySQL 
-3. La API procesa y sirve estos datos al frontend
-4. El frontend muestra la información con una interfaz atractiva
-5. La búsqueda inteligente traduce consultas de lenguaje natural a filtros de base de datos
+1. La API procesa y sirve estos datos al frontend
+2. El frontend muestra la información con una interfaz atractiva
+3. La búsqueda inteligente traduce consultas de lenguaje natural a filtros de base de datos
 
 ## 🔍 Búsqueda con IA
 
@@ -132,7 +124,6 @@ La característica distintiva del proyecto es su motor de búsqueda inteligente:
 │   ├── controllers/        # Controladores MVC
 │   ├── models/             # Modelos de datos
 │   ├── routes/             # Rutas de la API
-│   ├── scripts/            # Scripts de scraping
 │   └── Dockerfile          # Configuración para Docker
 ├── docker-compose.yml      # Configuración de Docker Compose
 └── README.md               # Este archivo
