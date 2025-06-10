@@ -45,7 +45,7 @@ export default function Navbar() {
   return (
     <nav className={styles.navbar}>
       <Link href="/" className={styles.logo}>
-        <img src="/images/logo.png" alt=".reliable." className={styles.logoImg} />
+        <img src="/images/logo.png" alt="CochesPalma" className={styles.logoImg} />
       </Link>
       
       {/* Botón hamburguesa para móvil */}

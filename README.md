@@ -1,4 +1,4 @@
-# Concesionario Web - .reliable.
+# Concesionario Web
 
 Aplicación web completa para un concesionario de vehículos con búsqueda inteligente impulsada por IA, construida con una arquitectura moderna basada en microservicios desplegada con Docker.
 
