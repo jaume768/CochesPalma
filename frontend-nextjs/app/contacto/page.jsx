@@ -1,8 +1,19 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './contacto.module.css';
 
 export default function Contacto() {
+  const [showPopup, setShowPopup] = useState(false);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí iría la lógica para procesar el formulario
+    // Por ahora solo mostramos el popup
+    setShowPopup(true);
+  };
   return (
     <div className={styles.container}>
       <Navbar />
@@ -20,7 +31,7 @@ export default function Contacto() {
             <div className={styles.formContainer}>
               <h2>Envíenos un mensaje</h2>
               
-              <form className={styles.contactForm} action="#" method="post">
+              <form className={styles.contactForm} onSubmit={handleSubmit}>
                 <div className={styles.inputGroup}>
                   <label htmlFor="nombre">Nombre completo *</label>
                   <input
@@ -165,6 +176,24 @@ export default function Contacto() {
       </main>
       
       <Footer />
+      
+      {/* Popup de confirmación */}
+      {showPopup && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h3>¡Mensaje enviado!</h3>
+              <p>Gracias por contactar con nosotros. Hemos recibido su mensaje y nos pondremos en contacto con usted lo antes posible.</p>
+              <button 
+                className={styles.popupButton}
+                onClick={() => setShowPopup(false)}
+              >
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

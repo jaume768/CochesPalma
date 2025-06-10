@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 /**
  * Componente de formulario de filtros con submit automático
  */
-export default function FilterForm({ search, combustible, carroceria }) {
+export default function FilterForm({ search, combustible, carroceria, onFilterChange }) {
   const router = useRouter();
   const [isUsingAI, setIsUsingAI] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -43,23 +43,26 @@ export default function FilterForm({ search, combustible, carroceria }) {
     // Creamos un objeto FormData para obtener los valores
     const formData = new FormData(form);
     
-    // Construimos la URL con los parámetros
-    const searchParams = new URLSearchParams();
+    // Construimos los filtros
+    const newFilters = {
+      search: formData.get('search') || searchInput,
+      carroceria: formData.get('carroceria'),
+      combustible: formData.get('combustible')
+    };
     
-    // Añadimos el valor de búsqueda si existe
-    const searchValue = formData.get('search');
-    if (searchValue) searchParams.set('search', searchValue);
-    
-    // Añadimos carrocería si existe
-    const carroceriaValue = formData.get('carroceria');
-    if (carroceriaValue) searchParams.set('carroceria', carroceriaValue);
-    
-    // Añadimos combustible si existe
-    const combustibleValue = formData.get('combustible');
-    if (combustibleValue) searchParams.set('combustible', combustibleValue);
-    
-    // Navegamos a la URL con los parámetros
-    router.push(`/comprar-vehiculos?${searchParams.toString()}`);
+    // Si existe la función callback para filtros, la llamamos primero para activar animaciones
+    if (typeof onFilterChange === 'function') {
+      onFilterChange(newFilters);
+    } else {
+      // Fallback al comportamiento anterior para compatibilidad
+      const searchParams = new URLSearchParams();
+      if (newFilters.search) searchParams.set('search', newFilters.search);
+      if (newFilters.carroceria) searchParams.set('carroceria', newFilters.carroceria);
+      if (newFilters.combustible) searchParams.set('combustible', newFilters.combustible);
+      
+      // Navegamos a la URL con los parámetros
+      router.push(`/comprar-vehiculos?${searchParams.toString()}`);
+    }
   };
   
   // Manejar el envío del formulario
@@ -67,22 +70,26 @@ export default function FilterForm({ search, combustible, carroceria }) {
     e.preventDefault();
     setIsLoading(true);
     
-    // Construimos la URL con los parámetros
-    const searchParams = new URLSearchParams();
+    // Construimos los nuevos filtros
+    const newFilters = {
+      search: searchInput,
+      carroceria: e.target.carroceria.value,
+      combustible: e.target.combustible.value
+    };
     
-    // Añadimos el valor de búsqueda si existe
-    if (searchInput) searchParams.set('search', searchInput);
-    
-    // Añadimos carrocería si existe
-    const carroceriaValue = e.target.carroceria.value;
-    if (carroceriaValue) searchParams.set('carroceria', carroceriaValue);
-    
-    // Añadimos combustible si existe
-    const combustibleValue = e.target.combustible.value;
-    if (combustibleValue) searchParams.set('combustible', combustibleValue);
-    
-    // Navegamos a la URL con los parámetros
-    router.push(`/comprar-vehiculos?${searchParams.toString()}`);
+    // Si existe la función callback para filtros, la llamamos primero
+    if (typeof onFilterChange === 'function') {
+      onFilterChange(newFilters);
+    } else {
+      // Fallback al comportamiento anterior
+      const searchParams = new URLSearchParams();
+      if (newFilters.search) searchParams.set('search', newFilters.search);
+      if (newFilters.carroceria) searchParams.set('carroceria', newFilters.carroceria);
+      if (newFilters.combustible) searchParams.set('combustible', newFilters.combustible);
+      
+      // Navegamos a la URL con los parámetros
+      router.push(`/comprar-vehiculos?${searchParams.toString()}`);
+    }
   };
   
   // Icono para el botón de búsqueda

@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import styles from './vender.module.css';
@@ -13,6 +16,14 @@ const tiposCombustible = [
 ];
 
 export default function VenderVehiculos() {
+  const [showPopup, setShowPopup] = useState(false);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Aquí iría la lógica para procesar el formulario
+    // Por ahora solo mostramos el popup
+    setShowPopup(true);
+  };
   return (
     <div className={styles.container}>
       <Navbar />
@@ -27,7 +38,7 @@ export default function VenderVehiculos() {
           </div>
 
           <div className={styles.formContainer}>
-            <form className={styles.venderForm} action="#" method="post">
+            <form className={styles.venderForm} onSubmit={handleSubmit}>
               <div className={styles.formGrid}>
                 <div className={styles.formColumn}>
                   <h3 className={styles.formSectionTitle}>Datos del contacto</h3>
@@ -245,6 +256,24 @@ export default function VenderVehiculos() {
       </main>
 
       <Footer />
+      
+      {/* Popup de confirmación */}
+      {showPopup && (
+        <div className={styles.popupOverlay}>
+          <div className={styles.popup}>
+            <div className={styles.popupContent}>
+              <h3>¡Solicitud recibida!</h3>
+              <p>Gracias por su interés en vender su vehículo con nosotros. Hemos recibido sus datos y un asesor se pondrá en contacto con usted en las próximas 24-48 horas para realizar una valoración de su vehículo.</p>
+              <button 
+                className={styles.popupButton}
+                onClick={() => setShowPopup(false)}
+              >
+                Aceptar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

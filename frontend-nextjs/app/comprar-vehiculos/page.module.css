@@ -165,10 +165,6 @@
     grid-template-columns: 1fr;
   }
   
-  .vehiclesContainer {
-    padding: 0 20px;
-  }
-  
   .searchBar {
     flex-direction: column;
     align-items: stretch;
@@ -199,10 +195,6 @@
 @media (max-width: 768px) {
   .vehiclesGrid {
     grid-template-columns: 1fr;
-  }
-  
-  .sectionHeader, .vehiclesContainer {
-    padding: 0 20px;
   }
 }
 
@@ -253,6 +245,57 @@
 .carInfo {
   padding: 1.5rem;
   color: white;
+}
+
+/* Animaciones para los filtros */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -468px 0; }
+  100% { background-position: 468px 0; }
+}
+
+/* Clase para contenedor de vehículos con animación */
+.animatedGrid {
+  transition: opacity 0.3s ease-out;
+}
+
+/* Estado de carga para cada tarjeta */
+.carCardLoading {
+  background: #f6f7f8;
+  background-image: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-size: 800px 104px;
+  animation: shimmer 1.5s infinite linear;
+}
+
+/* Animar cada tarjeta con un retraso distinto */
+.vehiclesGrid > a:nth-child(1) { animation-delay: 0.05s; }
+.vehiclesGrid > a:nth-child(2) { animation-delay: 0.1s; }
+.vehiclesGrid > a:nth-child(3) { animation-delay: 0.15s; }
+.vehiclesGrid > a:nth-child(4) { animation-delay: 0.2s; }
+.vehiclesGrid > a:nth-child(5) { animation-delay: 0.25s; }
+.vehiclesGrid > a:nth-child(6) { animation-delay: 0.3s; }
+.vehiclesGrid > a:nth-child(7) { animation-delay: 0.35s; }
+.vehiclesGrid > a:nth-child(8) { animation-delay: 0.4s; }
+.vehiclesGrid > a:nth-child(9) { animation-delay: 0.45s; }
+
+/* Estilos para el contador de resultados con animación */
+.resultsCounter {
+  transition: all 0.3s ease;
+}
+
+.resultsCounterAnimate {
+  transform: scale(1.05);
+  color: #0056d6;
 }
 
 .carBrandModel {

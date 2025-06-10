@@ -77,27 +77,6 @@ export default function FeaturedCars() {
           <CarCard key={car.id} car={car} />
         ))}
       </div>
-
-      <div className={styles.paginationControls}>
-        <button 
-          className={`${styles.paginationButton} ${styles.prevButton}`}
-          onClick={prevPage}
-          aria-label="Página anterior"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
-        <button 
-          className={`${styles.paginationButton} ${styles.nextButton}`}
-          onClick={nextPage}
-          aria-label="Página siguiente"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
     </section>
   );
 }
