@@ -67,7 +67,7 @@ cd CochessPalma
 ```
 
 2. **Desplegar con Docker Compose**
-**Nota:** configura el .env del api-nodejs con la key de open ai antes de hacer el build
+   - Nota: configura el .env del api-nodejs con la key de open ai antes de hacer el build
 ```bash
 docker-compose up --build
 ```
