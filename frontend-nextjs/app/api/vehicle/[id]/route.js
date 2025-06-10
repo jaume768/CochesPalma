@@ -17,7 +17,7 @@ export async function GET(request, { params }) {
 
     // Construir la URL de la API para obtener los detalles del vehículo
     const apiBaseUrl = process.env.API_URL || 'http://localhost:3001';
-    const apiUrl = `${apiBaseUrl}/api/coches/${id}`;
+    const apiUrl = `${apiBaseUrl}/api/backend/coches/${id}`;
     
     // Crear clave de caché única para este vehículo
     const cacheDir = path.join(process.cwd(), 'cache');

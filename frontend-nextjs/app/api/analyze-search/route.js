@@ -15,7 +15,7 @@ export async function GET(request) {
     }
     
     // Construir la URL para la API backend
-    const apiUrl = new URL(`${process.env.API_URL || 'http://localhost:3001'}/api/search/analyze-intent`);
+    const apiUrl = new URL(`${process.env.API_URL || 'http://localhost:3001'}/api/backend/search/analyze-intent`);
     apiUrl.searchParams.append('search', search);
     
     // Realizar la solicitud a la API del backend

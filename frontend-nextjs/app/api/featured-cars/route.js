@@ -99,8 +99,8 @@ export async function GET() {
     }
     
     // Obtener los datos de coches destacados desde nuestra API
-    console.log(`Obteniendo coches destacados de la API: ${API_URL}/api/coches-destacados`);
-    const response = await fetch(`${API_URL}/api/coches-destacados`, {
+    console.log(`Obteniendo coches destacados de la API: ${API_URL}/api/backend/coches-destacados`);
+    const response = await fetch(`${API_URL}/api/backend/coches-destacados`, {
       headers: {
         'Accept': 'application/json'
       },

@@ -30,11 +30,11 @@ app.get('/', (req, res) => {
 });
 
 // Configuración de rutas
-app.use('/api/vehiculos', vehiculoRoutes);
-app.use('/api/coches-destacados', cocheDestacadoRoutes);
-app.use('/api/coches', cocheRoutes);
-app.use('/api/rentacars', rentacarRoutes);
-app.use('/api/search', searchRoutes);
+app.use('/api/backend/vehiculos', vehiculoRoutes);
+app.use('/api/backend/coches-destacados', cocheDestacadoRoutes);
+app.use('/api/backend/coches', cocheRoutes);
+app.use('/api/backend/rentacars', rentacarRoutes);
+app.use('/api/backend/search', searchRoutes);
 
 // Iniciar la conexión a la base de datos y levantar el servidor
 const startServer = async () => {

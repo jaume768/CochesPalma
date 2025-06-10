@@ -104,7 +104,7 @@ export async function GET(request) {
     const carroceria = searchParams.get('carroceria') || '';
     
     // Construir la URL para nuestra API con parámetros de consulta
-    const apiUrl = new URL(`${API_URL}/api/coches`);
+    const apiUrl = new URL(`${API_URL}/api/backend/coches`);
     apiUrl.searchParams.append('page', page);
     apiUrl.searchParams.append('limit', limit);
     if (search) apiUrl.searchParams.append('search', search);
