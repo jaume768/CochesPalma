@@ -5,7 +5,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 40px;
   position: fixed;
   top: 0;
   left: 0;
@@ -68,9 +67,6 @@
 
 /* Media queries para responsive */
 @media (max-width: 767px) {
-  .navbar {
-    padding: 0 20px;
-  }
   
   .hamburger {
     display: block;
@@ -128,7 +124,7 @@
   margin: 0 auto;
   padding: 0 20px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 40px;
 }
 
@@ -136,6 +132,23 @@
   font-size: 1.2rem;
   margin-bottom: 15px;
   color: #fff;
+}
+
+.footerContactInfo {
+  display: grid;
+  gap: 20px;
+}
+
+.footerContactLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.footerContactText {
+  color: #fff;
+  margin: 0;
 }
 
 .footerLinks {
@@ -161,21 +174,53 @@
 .footerBottom {
   margin-top: 40px;
   text-align: center;
-  padding-top: 20px;
+  padding: 20px 15px 0;
   border-top: 1px solid #444;
   color: #aaa;
   font-size: 0.9rem;
 }
 
+.footerLegal {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.footerDivider {
+  display: inline-block;
+  margin: 0 5px;
+}
+
 /* Media queries */
 @media (max-width: 768px) {
-  .navbar {
-    padding: 0 20px;
+  .footer {
+    padding: 30px 0;
   }
-
-
+  
   .footerContent {
-    grid-template-columns: 1fr;
     gap: 30px;
+  }
+  
+  .footerContactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .footer {
+    overflow-x: hidden;
+  }
+  
+  .footerBottom {
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .footerLegal {
+    justify-content: center;
+    margin-top: 15px;
   }
 }
