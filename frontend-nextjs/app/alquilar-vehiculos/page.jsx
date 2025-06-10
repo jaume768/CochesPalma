@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaSearch } from 'react-icons/fa';
 import Navbar from '../components/Navbar';
@@ -8,7 +8,8 @@ import Footer from '../components/Footer';
 import RentacarCard from '../components/RentacarCard';
 import styles from './alquilar.module.css';
 
-export default function AlquilarCochePage() {
+// Componente con useSearchParams envuelto en Suspense
+function AlquilarCocheContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -116,5 +117,14 @@ export default function AlquilarCochePage() {
       
       <Footer />
     </div>
+  );
+}
+
+// Componente principal con límite de Suspense para resolver el error de useSearchParams
+export default function AlquilarCochePage() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <AlquilarCocheContent />
+    </Suspense>
   );
 }

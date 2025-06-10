@@ -24,6 +24,27 @@ services:
     restart: unless-stopped
     networks:
       - concesionario-network
+      
+  # Servicio para el frontend Next.js
+  frontend:
+    build:
+      context: ./frontend-nextjs
+      dockerfile: Dockerfile
+    container_name: concesionario-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend-nextjs:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - API_URL=http://api:3001
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - concesionario-network
 
   # Servicio de la base de datos MySQL
   mysql:
@@ -61,6 +82,28 @@ services:
       - PMA_ABSOLUTE_URI=http://localhost:8080/
       - PMA_PORT=3306
     depends_on:
+      - mysql
+    networks:
+      - concesionario-network
+
+  # Servicio para inicializar y ejecutar scripts
+  init-scripts:
+    build:
+      context: ./api-nodejs
+      dockerfile: Dockerfile.scripts
+    container_name: concesionario-init-scripts
+    volumes:
+      - ./api-nodejs:/usr/src/app
+      - /usr/src/app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_USER=concesionario_user
+      - DB_PASSWORD=concesionario_pass
+      - DB_NAME=concesionario_db
+      - DB_PORT=3306
+    depends_on:
+      - api
       - mysql
     networks:
       - concesionario-network

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
@@ -11,8 +11,8 @@ import FilterForm from './FilterForm';
 import styles from './page.module.css';
 import VehiclesPagination from './VehiclesPagination';
 
-// Componente principal con animaciones como cliente
-export default function ComprarVehiculos() {
+// Componente con useSearchParams envuelto en Suspense
+function ComprarVehiculosContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   
@@ -253,5 +253,14 @@ export default function ComprarVehiculos() {
 
       <Footer />
     </div>
+  );
+}
+
+// Componente principal con límite de Suspense para resolver el error de useSearchParams
+export default function ComprarVehiculos() {
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <ComprarVehiculosContent />
+    </Suspense>
   );
 }
