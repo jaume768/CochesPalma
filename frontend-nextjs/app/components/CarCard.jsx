@@ -22,7 +22,7 @@ export default function CarCard({ car }) {
             <span className={styles.carKm}>{km} km</span>
           </div>
           <div className={styles.carPriceContainer}>
-            <span className={styles.carPrice}>{price.toLocaleString()} €</span>
+            <span className={styles.carPrice}>{parseInt(price).toLocaleString()} €</span>
           </div>
           <div className={styles.carDetailsLink}>
             <span className={styles.detailsText}>

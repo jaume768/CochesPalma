@@ -11,20 +11,6 @@ import VehiclesPagination from './VehiclesPagination';
 // Configurar revalidación cada 1 hora (3600 segundos)
 export const revalidate = 3600;
 
-// Iconos para el componente
-const SearchIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M21 21L16.65 16.65" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-const ChevronDownIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 9L12 15L18 9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 // Componente Loading
 function LoadingVehicles() {
   return (
@@ -72,7 +58,7 @@ function VehicleGrid({ vehicles }) {
                 <span className={styles.carKm}>{vehicle.km}</span>
               </div>
               <div className={styles.carPriceContainer}>
-                <span className={styles.carPrice}>{vehicle.price}</span>
+                <span className={styles.carPrice}>{parseInt(vehicle.price)} €</span>
               </div>
               <div className={styles.carDetailsLink}>
                 <span className={styles.detailsText}>

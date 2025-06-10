@@ -66,7 +66,7 @@
 }
 
 .formSectionTitle {
-  font-size: 1.3rem;
+  font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
   font-weight: 500;
@@ -85,7 +85,7 @@
   margin-bottom: 6px;
   font-weight: 500;
   color: #333;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 .formInput,

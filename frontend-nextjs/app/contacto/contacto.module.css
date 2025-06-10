@@ -55,7 +55,7 @@
 .formContainer h2,
 .infoContainer h2,
 .mapContainer h2 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #333;
   margin-bottom: 20px;
   padding-bottom: 8px;
@@ -80,7 +80,7 @@
   margin-bottom: 6px;
   font-weight: 500;
   color: #333;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
 }
 
 .formInput,
