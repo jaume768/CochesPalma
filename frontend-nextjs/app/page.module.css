@@ -110,7 +110,7 @@
   gap: 1rem;
   margin-bottom: 3rem;
   justify-content: flex-start;
-  margin-left: 12em;
+  margin-left: 16em;
 }
 
 .primaryButton {
@@ -160,6 +160,15 @@
 .searchContainer {
   margin-top: 2rem;
   position: relative;
+  width: 450px;
+  margin-left: 15em;
+}
+
+@media (max-width: 768px) {
+  .searchContainer {
+    margin-left: 0;
+    width: 0;
+  }
 }
 
 .searchTitle {
@@ -182,11 +191,13 @@
   display: flex;
   position: relative;
   margin-left: 4em;
+  width: 100%;
 }
 
 @media (max-width: 768px) {
   .searchInputWrapper {
     margin-left: 0;
+    width: 0;
   }
 }
 
