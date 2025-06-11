@@ -25,7 +25,7 @@ function AlquilarCocheContent() {
     
     try {
       // Construir la URL con el filtro de búsqueda si existe
-      const url = new URL('/api/rentacars', window.location.origin);
+      const url = new URL('/api/backend/rentacars', window.location.origin);
       
       // Agregar parámetros de búsqueda si existen
       if (searchFilter) url.searchParams.append('search', searchFilter);
