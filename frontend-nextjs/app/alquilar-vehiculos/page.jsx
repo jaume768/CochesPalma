@@ -25,7 +25,8 @@ function AlquilarCocheContent() {
     
     try {
       // Construir la URL con el filtro de búsqueda si existe
-      const url = 'http://localhost:3001/api/backend/rentacars';
+      const apiBaseUrl = process.env.API_URL || 'http://localhost:3001';
+      const url = `${apiBaseUrl}/api/backend/rentacars`;
       
       const response = await fetch(url);
       console.log(response);
