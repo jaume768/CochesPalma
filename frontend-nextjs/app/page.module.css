@@ -1,6 +1,7 @@
 .container {
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 /* Navbar Styles */
