@@ -25,20 +25,20 @@ function AlquilarCocheContent() {
     
     try {
       // Construir la URL con el filtro de búsqueda si existe
-      const apiBaseUrl = process.env.API_URL || 'http://localhost:3001';
-      const url = `${apiBaseUrl}/api/backend/rentacars`;
+      const url = new URL('/api/rentacars', window.location.origin);
       
       // Agregar parámetros de búsqueda si existen
       if (searchFilter) url.searchParams.append('search', searchFilter);
       
       console.log('Fetching rentacars from:', url.toString());
-      const response = await fetch(url);
+      const response = await fetch(url.toString());
       
       if (!response.ok) {
         throw new Error(`Error ${response.status}: ${response.statusText}`);
       }
       
       const data = await response.json();
+      console.log(data);
       setRentacars(data.data || []);
     } catch (error) {
       console.error('Error al cargar rentacars:', error);
