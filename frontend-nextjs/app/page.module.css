@@ -173,15 +173,14 @@
 .searchBar {
   display: flex;
   flex-direction: column;
-  max-width: 600px;
-  margin-left: auto;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .searchInputWrapper {
   display: flex;
   position: relative;
-  width: 100%;
 }
 
 .searchInput {
