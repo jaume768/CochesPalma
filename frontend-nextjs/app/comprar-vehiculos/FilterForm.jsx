@@ -122,7 +122,7 @@ export default function FilterForm({ search, combustible, carroceria, onFilterCh
           defaultValue={carroceria}
           onChange={handleFilterChange}
         >
-          <option value="">Tipo de Carrocería</option>
+          <option value="">Carrocería</option>
           <option value="Berlina">Berlina</option>
           <option value="SUV">SUV</option>
           <option value="Compacto">Compacto</option>
@@ -135,7 +135,7 @@ export default function FilterForm({ search, combustible, carroceria, onFilterCh
           defaultValue={combustible}
           onChange={handleFilterChange}
         >
-          <option value="">Tipo de Combustible</option>
+          <option value="">Combustible</option>
           <option value="Gasolina">Gasolina</option>
           <option value="Diésel">Diésel</option>
           <option value="Híbrido">Híbrido</option>
