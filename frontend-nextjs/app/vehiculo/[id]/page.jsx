@@ -16,7 +16,7 @@ async function getVehicleData(id) {
     // En lugar de hacer una llamada a nuestra propia API en el lado del servidor,
     // llamamos directamente a la API de backend desde el server component
     const apiBaseUrl = process.env.API_URL || 'http://localhost:3001';
-    const apiUrl = `${apiBaseUrl}/api/backend/coches/${id}`;
+    const apiUrl = `${apiBaseUrl}/api/coches/${id}`;
     
     console.log(`Obteniendo detalles del vehículo directamente del backend: ${apiUrl}`);
     
@@ -171,4 +171,3 @@ export default async function VehicleDetailPage({ params }) {
     </div>
   );
 }
-

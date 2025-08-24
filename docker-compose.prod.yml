@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   # Caddy reverse proxy with automatic HTTPS
   caddy:
@@ -45,7 +43,7 @@ services:
     networks:
       - concesionario-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -67,7 +65,7 @@ services:
     networks:
       - concesionario-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 30s
       timeout: 10s
       retries: 3
