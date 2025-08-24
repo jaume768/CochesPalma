@@ -1,0 +1,135 @@
+version: '3.8'
+
+services:
+  # Caddy reverse proxy with automatic HTTPS
+  caddy:
+    image: caddy:2-alpine
+    container_name: concesionario-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - frontend
+      - api
+    networks:
+      - concesionario-network
+
+  # API Backend - Production config
+  api:
+    build:
+      context: ./api-nodejs
+      dockerfile: Dockerfile
+    container_name: concesionario-api
+    expose:
+      - "3001"
+    volumes:
+      - ./api-nodejs/uploads:/usr/src/app/uploads
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_USER=concesionario_user
+      - DB_PASSWORD=${DB_PASSWORD:-concesionario_pass}
+      - DB_NAME=concesionario_db
+      - DB_PORT=3306
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - PORT=3001
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Frontend Next.js - Production config
+  frontend:
+    build:
+      context: ./frontend-nextjs
+      dockerfile: Dockerfile
+    container_name: concesionario-frontend
+    expose:
+      - "3000"
+    environment:
+      - NODE_ENV=production
+      - API_URL=http://api:3001
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # MySQL Database - Production config
+  mysql:
+    image: mysql:8.0
+    container_name: concesionario-mysql
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --innodb-buffer-pool-size=256M
+      - --max-connections=100
+    expose:
+      - "3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password_secure}
+      - MYSQL_DATABASE=concesionario_db
+      - MYSQL_USER=concesionario_user
+      - MYSQL_PASSWORD=${DB_PASSWORD:-concesionario_pass}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./api-nodejs/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./mysql-conf:/etc/mysql/conf.d
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "concesionario_user", "-p${DB_PASSWORD:-concesionario_pass}"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # PHPMyAdmin - Only for admin access (optional in production)
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: concesionario-phpmyadmin
+    expose:
+      - "80"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=concesionario_user
+      - PMA_PASSWORD=${DB_PASSWORD:-concesionario_pass}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-root_password_secure}
+      - PMA_ABSOLUTE_URI=https://trendsunion.com/admin/
+    depends_on:
+      - mysql
+    restart: unless-stopped
+    networks:
+      - concesionario-network
+    profiles:
+      - admin  # Only start with --profile admin
+
+volumes:
+  mysql_data:
+    driver: local
+  caddy_data:
+    driver: local
+  caddy_config:
+    driver: local
+
+networks:
+  concesionario-network:
+    driver: bridge
