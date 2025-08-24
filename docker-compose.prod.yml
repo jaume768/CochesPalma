@@ -95,7 +95,6 @@ services:
       - MYSQL_PASSWORD=${DB_PASSWORD:-concesionario_pass}
     volumes:
       - mysql_data:/var/lib/mysql
-      - ./api-nodejs/scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./mysql-conf:/etc/mysql/conf.d
     restart: unless-stopped
     networks:
