@@ -135,7 +135,8 @@ async function scrapeDetail(url) {
     if (!list.length) break;
     allVehicles.push(...list);
     page++;
-    if(page>30) break;
+    // Límite eliminado para scraping completo
+    if(page > (process.env.SCRAPE_MAX_PAGES || 999)) break;
   }
   console.log(`Total coches: ${allVehicles.length}`);
 

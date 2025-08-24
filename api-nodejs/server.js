@@ -29,13 +29,12 @@ app.get('/', (req, res) => {
   res.json({ message: 'API del concesionario funcionando correctamente' });
 });
 
-// Configuración de rutas
+// Configuración de rutas - SOLO endpoints unificados
 app.use('/api/vehicle-list', cocheRoutes);
-app.use('/api/featured-cars', cocheDestacadoRoutes);
+app.use('/api/featured-cars', cocheDestacadoRoutes); 
 app.use('/api/rentacars', rentacarRoutes);
 app.use('/api/coches', cocheRoutes);
 app.use('/api/search', searchRoutes);
-app.use('/api/backend/vehiculos', vehiculoRoutes);
 
 // Iniciar la conexión a la base de datos y levantar el servidor
 const startServer = async () => {

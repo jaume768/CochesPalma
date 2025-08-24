@@ -1,74 +1,22 @@
-# Caddy configuration for CochesPalma deployment
-# Main domain configuration
 trendsunion.com {
-    # Frontend routes
-    handle {
-        reverse_proxy frontend:3000
-    }
-
-    # API routes
+    # API routes first (more specific)
     handle /api/* {
         reverse_proxy api:3001
     }
-
-    # Admin panel (PHPMyAdmin) - Optional, only if admin profile is enabled
-    handle /admin/* {
-        reverse_proxy phpmyadmin:80
+    
+    # Frontend routes (catch all)
+    handle {
+        reverse_proxy frontend:3000
     }
-
-    # Security headers
+    
+    # Basic security headers
     header {
-        # Remove Server header
-        -Server
-        
-        # Security headers
         X-Content-Type-Options nosniff
         X-Frame-Options DENY
-        X-XSS-Protection "1; mode=block"
-        Referrer-Policy strict-origin-when-cross-origin
-        
-        # HSTS
-        Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     }
-
-    # Logging
-    log {
-        output file /var/log/caddy/trendsunion.log {
-            roll_size 10MB
-            roll_keep 5
-        }
-        format json
-        level INFO
-    }
-
+    
     # Gzip compression
     encode gzip
-
-    # Rate limiting for API endpoints
-    rate_limit {
-        zone api {
-            key {remote_host}
-            events 100
-            window 1m
-        }
-        
-        zone search {
-            key {remote_host}
-            events 30
-            window 1m
-        }
-    }
-
-    @api_routes {
-        path /api/*
-    }
-
-    @search_routes {
-        path /api/backend/search/*
-    }
-
-    rate_limit @api_routes api
-    rate_limit @search_routes search
 }
 
 # Redirect www to non-www
