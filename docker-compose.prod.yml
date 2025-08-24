@@ -77,13 +77,15 @@ services:
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_general_ci
-      - --innodb-buffer-pool-size=512M
-      - --max-connections=100
-      - --max-allowed-packet=64M
-      - --innodb-log-file-size=256M
-      - --innodb-log-buffer-size=64M
-      - --innodb-flush-log-at-trx-commit=2
+      - --innodb-buffer-pool-size=128M
+      - --max-connections=50
+      - --max-allowed-packet=32M
+      - --innodb-log-file-size=64M
+      - --innodb-log-buffer-size=16M
+      - --innodb-flush-log-at-trx-commit=0
       - --sync-binlog=0
+      - --skip-name-resolve
+      - --skip-host-cache
     expose:
       - "3306"
     environment:
