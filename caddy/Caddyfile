@@ -3,15 +3,12 @@
     # Email for Let's Encrypt
     email admin@trendsunion.com
 
-    # Deshabilitar HTTPS automático hasta configurar DNS
-    auto_https off
-
     # Admin API
     admin :2019
 }
 
-# Usar puerto 80 hasta que DNS funcione
-:80 {
+# Dominio principal con HTTPS automático
+trendsunion.com {
     # API routes first (more specific)
     handle /api/* {
         reverse_proxy api:3001
@@ -22,10 +19,12 @@
         reverse_proxy frontend:3000
     }
 
-    # Basic security headers
+    # Security headers
     header {
         X-Content-Type-Options nosniff
         X-Frame-Options DENY
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
     }
 
     # Gzip compression
