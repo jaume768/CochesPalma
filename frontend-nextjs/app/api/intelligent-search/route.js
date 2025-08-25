@@ -14,7 +14,7 @@ export async function GET(request) {
     const carroceria = searchParams.get('carroceria') || '';
     
     // Construir la URL para la API backend
-    const apiUrl = new URL(`${process.env.API_URL || 'http://localhost:3001'}/api/backend/search/vehicles`);
+    const apiUrl = new URL(`${process.env.API_URL || 'http://localhost:3001'}/api/search/vehicles`);
     apiUrl.searchParams.append('search', search);
     apiUrl.searchParams.append('page', page);
     apiUrl.searchParams.append('limit', limit);
