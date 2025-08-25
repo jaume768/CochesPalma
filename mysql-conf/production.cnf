@@ -5,14 +5,14 @@ skip-host-cache
 skip-name-resolve
 
 # Performance settings for AWS EC2
-innodb_buffer_pool_size = 256M
-innodb_log_file_size = 64M
-innodb_log_buffer_size = 16M
+innodb_buffer_pool_size = 64M
+innodb_log_file_size = 32M
+innodb_log_buffer_size = 8M
 innodb_flush_log_at_trx_commit = 2
 innodb_flush_method = O_DIRECT
 
 # Connection settings
-max_connections = 100
+max_connections = 10
 max_connect_errors = 10000
 connect_timeout = 60
 wait_timeout = 28800
@@ -20,12 +20,12 @@ interactive_timeout = 28800
 
 # Query cache
 query_cache_type = 1
-query_cache_size = 32M
-query_cache_limit = 2M
+query_cache_size = 16M
+query_cache_limit = 1M
 
 # Temporary tables
-tmp_table_size = 64M
-max_heap_table_size = 64M
+tmp_table_size = 32M
+max_heap_table_size = 32M
 
 # Slow query log
 slow_query_log = 1
@@ -35,10 +35,10 @@ long_query_time = 2
 # Error log
 log-error = /var/log/mysql/error.log
 
-# Binary logging (for backups)
-log-bin = /var/log/mysql/mysql-bin
-binlog_expire_logs_seconds = 604800
-max_binlog_size = 100M
+# Binary logging disabled for low memory
+# log-bin = /var/log/mysql/mysql-bin
+# binlog_expire_logs_seconds = 604800
+# max_binlog_size = 100M
 
 # Character set
 character-set-server = utf8mb4
