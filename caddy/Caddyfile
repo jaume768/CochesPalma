@@ -1,20 +1,32 @@
+# Global options (DEBE ir primero)
+{
+    # Email for Let's Encrypt
+    email admin@trendsunion.com
+
+    # Automatic HTTPS
+    auto_https on
+
+    # Admin API
+    admin :2019
+}
+
 trendsunion.com {
     # API routes first (more specific)
     handle /api/* {
         reverse_proxy api:3001
     }
-    
+
     # Frontend routes (catch all)
     handle {
         reverse_proxy frontend:3000
     }
-    
+
     # Basic security headers
     header {
         X-Content-Type-Options nosniff
         X-Frame-Options DENY
     }
-    
+
     # Gzip compression
     encode gzip
 }
@@ -22,16 +34,4 @@ trendsunion.com {
 # Redirect www to non-www
 www.trendsunion.com {
     redir https://trendsunion.com{uri} permanent
-}
-
-# Global options
-{
-    # Email for Let's Encrypt
-    email admin@trendsunion.com
-    
-    # Automatic HTTPS
-    auto_https on
-    
-    # Admin API
-    admin :2019
 }
