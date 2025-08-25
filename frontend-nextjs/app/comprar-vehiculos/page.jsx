@@ -41,7 +41,7 @@ function ComprarVehiculosContent() {
   const fetchVehicles = useCallback(async () => {
     try {
       // Determinar qué API usar
-      const apiEndpoint = search ? 'intelligent-search' : 'vehicle-list';
+      const apiEndpoint = search ? 'search/vehicles' : 'vehicle-list';
       
       // Construir la URL con los parámetros
       const url = new URL(`/api/${apiEndpoint}`, window.location.origin);

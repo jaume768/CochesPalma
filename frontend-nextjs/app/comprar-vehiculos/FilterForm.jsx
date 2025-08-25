@@ -24,7 +24,7 @@ export default function FilterForm({ search, combustible, carroceria, onFilterCh
   // Función para verificar si se está usando la búsqueda inteligente
   const checkIfUsingAI = async () => {
     try {
-      const response = await fetch(`/api/intelligent-search?search=${encodeURIComponent(search)}&page=1&limit=1`);
+      const response = await fetch(`/api/search/vehicles?search=${encodeURIComponent(search)}&page=1&limit=1`);
       if (response.ok) {
         const data = await response.json();
         setIsUsingAI(data.aiGenerated === true);
